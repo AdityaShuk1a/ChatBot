@@ -115,18 +115,18 @@ function LandingPage() {
     }
   };
   useEffect(() => {
-    window.addEventListener("keydown", (e)=>{
+    const handleKeyDown = (e) => {
       if (e.key === "Enter") {
         setInput(userInput);
       }
-    })
+    };
 
-    removeEventListener("keydown", (e)=>{
-      if (e.key === "Enter") {
-        setInput(userInput);
-      }
-    })
-  })
+    window.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [userInput]);
   const currentChat = chats.find((chat) => chat.id === chatNumber);
 
   return (
